@@ -13,6 +13,8 @@ router = HybridRouter()
 
 # app views and viewsets
 router.register(r'tool', ToolViewSet, r"tool")
+router.register(r'author', AuthorViewSet, r"author")
+router.register(r'book', BookViewSet, r"book")
 
 urlpatterns = [
     # default django admin interface (currently unused)

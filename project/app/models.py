@@ -1,6 +1,15 @@
 from mongoengine import Document, EmbeddedDocument, fields
 
 
+class Author(Document):
+    name = fields.StringField()
+
+
+class Book(Document):
+    name = fields.StringField()
+    author = fields.ReferenceField(Author, dbref=True)
+
+
 class ToolInput(EmbeddedDocument):
     id = fields.StringField(required=True)
     type = fields.ListField(fields.DynamicField(null=True))
@@ -41,3 +50,4 @@ class Tool(Document):
     successCodes = fields.ListField(fields.IntField(), required=False)
     temporaryFailCodes = fields.ListField(fields.IntField(), required=False)
     permanentFailCodes = fields.ListField(fields.IntField(), required=False)
+
