@@ -4,6 +4,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 from app.views import *
+from users.views import *
 
 from routers import HybridRouter
 
@@ -15,6 +16,9 @@ router = HybridRouter()
 router.register(r'tool', ToolViewSet, r"tool")
 router.register(r'author', AuthorViewSet, r"author")
 router.register(r'book', BookViewSet, r"book")
+router.register(r'user', UserViewSet, r"user")
+router.add_api_view(r'auth', url(r'^auth/$', ObtainAuthToken.as_view(), name=r"auth"))
+
 
 urlpatterns = [
     # default django admin interface (currently unused)

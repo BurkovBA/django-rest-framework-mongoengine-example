@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_mongoengine',
-    'app'
+    'mongoengine.django.mongo_auth',
+    'app',
+    'users'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -154,6 +156,22 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# This is a dummy django model. It's just a crutch to keep django content,
+# while all the real functionality is associated with MONGOENGINE_USER_DOCUMENT
+AUTH_USER_MODEL = 'mongo_auth.MongoUser'
+
+MONGOENGINE_USER_DOCUMENT = 'users.models.User'
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+DEFAULT_AUTHENTICATION_CLASSES = (
+    'rest_framework.authentication.SessionAuthentication',
+)
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
