@@ -25,6 +25,7 @@ class UserViewSet(mixins.ListModelMixin,
 class ObtainAuthToken(views.APIView):
     throttle_classes = ()
     permission_classes = ()
+    authentication_classes = (TokenAuthentication, )
     # parser_classes = (parsers.FormParser, parsers.MultiPartParser, parsers.JSONParser,)
     # renderer_classes = (renderers.JSONRenderer,)
     serializer_class = AuthTokenSerializer

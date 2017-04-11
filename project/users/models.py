@@ -31,8 +31,6 @@ class User(Document):
     id = fields.IntField(primary_key=True)
     username = fields.StringField(required=True)
     email = fields.EmailField()
-    access_token = fields.StringField()
-    refresh_token = fields.StringField()
 
     # name is a human-readable name used to refer to user e.g. "Martin Taylor"
     # longest full name registered in guinness book is 744 letters-long
@@ -63,12 +61,6 @@ class User(Document):
 
     def get_full_name(self):
         return self.username
-
-    def get_access_token(self):
-        return self.access_token
-
-    def get_refresh_token(self):
-        return self.refresh_token
 
     def __unicode__(self):
         return self.username
