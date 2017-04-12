@@ -41,7 +41,7 @@ def create_user():
 
 class ObtainAuthTokenTestCase(APITestCase):
     def setUp(self):
-        self.new_user = create_superuser()
+        self.new_user = create_user()
         self.url = reverse("api:auth")
 
     def doCleanups(self):
@@ -53,4 +53,4 @@ class ObtainAuthTokenTestCase(APITestCase):
         response = c.post(self.url, {"username": "user@example.com", "password": "foobar"})
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.content, '{}')
+        self.assertEqual(response.content, '{"token":"2c7e9e9465e917dcd34e620193ed2a7447140e5b"}')

@@ -35,6 +35,11 @@ class User(Document):
     # name is a human-readable name used to refer to user e.g. "Martin Taylor"
     # longest full name registered in guinness book is 744 letters-long
     name = fields.StringField()
+    password = fields.StringField(
+        max_length=128,
+        verbose_name=_('password'),
+        help_text=_("Use '[algo]$[iterations]$[salt]$[hexdigest]' or use the <a href=\"password/\">change password form</a>.")
+    )
 
     # the following DjangoORM-like fields are defined
     # just like in mongoengine.django.auth.User

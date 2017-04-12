@@ -162,8 +162,10 @@ AUTH_USER_MODEL = 'mongo_auth.MongoUser'
 
 MONGOENGINE_USER_DOCUMENT = 'users.models.User'
 
+# Don't confuse Django's AUTHENTICATION_BACKENDS with DRF's AUTHENTICATION_CLASSES!
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend'
+    'mongoengine.django.auth.MongoEngineBackend',
+    #'django.contrib.auth.backends.ModelBackend'
 )
 
 DEFAULT_AUTHENTICATION_CLASSES = (
