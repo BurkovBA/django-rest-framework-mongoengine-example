@@ -29,4 +29,4 @@ and visit http://localhost:8000/api/ url, where you'll find the root of your RES
 Project structure
 -----------------
 
-The toplevel directory contains a single django project, called, ahem, `project`. Within it there are per-project folder called `project`, where global settings are stored, and a single django app, called `app`.
+The toplevel directory contains a single django project, called, ahem, `project`. Within it there are a per-project folder called `project`, where global settings are stored, and two django app, called `users` and `app`. `users` contains the user model and an example of authentication implementation, while `app` contains several API endpoints, demonstrating DRF-Mongoengine capabilities.
