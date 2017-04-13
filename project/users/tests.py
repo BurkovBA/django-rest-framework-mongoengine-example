@@ -47,10 +47,17 @@ class ObtainAuthTokenTestCase(APITestCase):
     def doCleanups(self):
         User.drop_collection()
 
-    def test_post_correct_data(self):
+    def test_post_correct_credentials(self):
         c = APIClient()
 
         response = c.post(self.url, {"username": "user@example.com", "password": "foobar"})
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.content, '{"token":"2c7e9e9465e917dcd34e620193ed2a7447140e5b"}')
+
+    def test_post_incorrect_credentials(self):
+        c = APIClient()
+
+        response = c.post(self.url, {"username": "user@example.com", "password": ""})
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
