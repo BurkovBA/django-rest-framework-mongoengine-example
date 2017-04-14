@@ -53,7 +53,10 @@ class ObtainAuthTokenTestCase(APITestCase):
         response = c.post(self.url, {"username": "user@example.com", "password": "foobar"})
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.content, '{"token":"2c7e9e9465e917dcd34e620193ed2a7447140e5b"}')
+        self.assertRegexpMatches(response.content, r'{"token":"\S+"}')
+
+        token = Token.objects.get(user=self.new_user)
+        self.assertRegexpMatches(token.key, "\S+")
 
     def test_post_incorrect_credentials(self):
         c = APIClient()
@@ -61,3 +64,28 @@ class ObtainAuthTokenTestCase(APITestCase):
         response = c.post(self.url, {"username": "user@example.com", "password": ""})
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+class UserViewSetTestCase(APITestCase):
+    def setUp(self):
+        self.new_user = create_user()
+        self.url = reverse("api:user-list")
+        self.auth_header = 'Token 2c7e9e9465e917dcd34e620193ed2a7447140e5b'
+
+        Token.objects.create(key='2c7e9e9465e917dcd34e620193ed2a7447140e5b', user=self.new_user)
+
+    def doCleanups(self):
+        User.drop_collection()
+        Token.drop_collection()
+
+    def test_get_unauthorized(self):
+        c = APIClient()
+
+        response = c.get(self.url)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_get_authorized(self):
+        c = APIClient()
+
+        response = c.get(self.url, HTTP_AUTHORIZATION=self.auth_header)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
