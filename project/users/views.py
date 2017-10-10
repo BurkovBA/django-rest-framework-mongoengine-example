@@ -3,9 +3,9 @@ from rest_framework.response import Response
 from rest_framework_mongoengine import viewsets
 from rest_framework import parsers, renderers
 
-from serializers import *
-from models import *
-from authentication import TokenAuthentication
+from users.serializers import *
+from users.models import *
+from users.authentication import TokenAuthentication
 
 
 class UserViewSet(mixins.ListModelMixin,

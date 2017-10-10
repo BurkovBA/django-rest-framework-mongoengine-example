@@ -2,7 +2,7 @@ from rest_framework.test import APIClient, APITestCase
 from rest_framework import status
 from rest_framework.reverse import reverse
 
-from models import *
+from users.models import *
 
 
 def create_superuser():
@@ -53,7 +53,7 @@ class ObtainAuthTokenTestCase(APITestCase):
         response = c.post(self.url, {"username": "user@example.com", "password": "foobar"})
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertRegexpMatches(response.content, r'{"token":"\S+"}')
+        self.assertRegexpMatches(response.content.decode('UTF-8'), r'{"token":"\S+"}')
 
         token = Token.objects.get(user=self.new_user)
         self.assertRegexpMatches(token.key, "\S+")
