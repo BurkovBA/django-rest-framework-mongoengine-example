@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from rest_framework import serializers
 from rest_framework_mongoengine.serializers import DocumentSerializer
 
-from models import User
+from users.models import User
 
 
 class AuthTokenSerializer(serializers.Serializer):

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework_mongoengine import serializers as mongoserializers
 
-from models import Tool, Author, Book
+from app.models import Tool, Author, Book
 
 
 class ToolSerializer(mongoserializers.DocumentSerializer):

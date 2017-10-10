@@ -6,7 +6,7 @@ from django.contrib import admin
 from app.views import *
 from users.views import *
 
-from routers import HybridRouter
+from project.routers import HybridRouter
 
 
 # We use a single global DRF Router that routes views from all apps in project
